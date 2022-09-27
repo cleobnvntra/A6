@@ -1,7 +1,6 @@
 var employees = [];
 var departments = [];
 var managers = [];
-var empty = [];
 var fs = require('fs');
 
 module.exports.initialize = function() {
@@ -50,7 +49,7 @@ module.exports.getManagers = function() {
 module.exports.getDepartments = function() {
 
     return new Promise(function(resolve, reject) {
-        if(empty.length == 0) reject("No results returned.");
+        if(departments.length == 0) reject("No results returned.");
         resolve(departments);
     });
 }
