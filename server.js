@@ -26,8 +26,8 @@ app.get("/managers", function(req,res) {
     res.json(data);
   })
   .catch(function(err) {
-    res.send(err);
-  }); 
+    res.json(err);
+  });
 });
 
 app.get("/employees", function(req,res) {
@@ -35,7 +35,7 @@ app.get("/employees", function(req,res) {
     res.json(data);
   })
   .catch(function(err) {
-    res.send(err);
+    res.json(err);
   });
 });
 
@@ -44,7 +44,7 @@ app.get("/departments", function(req,res) {
       res.json(data);
     })
     .catch(function(err) {
-      res.send(err);
+      res.json(err);
     });
 });
 
