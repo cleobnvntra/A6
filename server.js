@@ -1,3 +1,16 @@
+/*************************************************************************
+* BTI325– Assignment 2
+* I declare that this assignment is my own work in accordance with Seneca Academic
+Policy. No part * of this assignment has been copied manually or electronically from any
+other source
+* (including 3rd party web sites) or distributed to other students.
+*
+* Name: Cleo Buenaventura Student ID: 030626139 Date: 9/27/2022
+*
+* Your app’s URL (from Cyclic) : https://burgundy-worm-tam.cyclic.app
+*
+*************************************************************************/ 
+
 var express = require("express");
 var data_service = require("./data-service.js");
 var path = require("path");
