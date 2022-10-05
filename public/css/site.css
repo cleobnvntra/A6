@@ -1,3 +1,15 @@
-h1 {
+h1.lost {
     font-size: 8rem;
+    text-align: center;
+}
+
+h2.back {
+    text-align: center;
+    font-size: 3rem;
+}
+
+img.arrows {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
