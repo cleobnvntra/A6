@@ -7,7 +7,7 @@ other source
 *
 * Name: Cleo Buenaventura Student ID: 030626139 Date: 10/4/2022
 *
-* Your app’s URL (from Cyclic) : 
+* Your app’s URL (from Cyclic) : https://evening-thicket-90046.herokuapp.com/
 *
 *************************************************************************/ 
 
@@ -125,7 +125,7 @@ app.get("/employees/add", function(req,res) {
 //ADD EMPLOYEE POST
 //ADDS EMPLOYEE DATA
 app.post("/employees/add", function(req,res) {
-  data_service.addEmployee(req.body).then(function(data) {
+  data_service.addEmployee(req.body).then(function() {
     res.redirect("/employees");
   }).catch(function(err) {
     res.send(err);
