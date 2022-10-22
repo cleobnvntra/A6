@@ -73,7 +73,7 @@ module.exports.addEmployee = function(employeeData) {
 
             employeeData.employeeNum = employees.length + 1;
             employees.push(employeeData);
-            resolve;
+            resolve();
         }
     });
 }
