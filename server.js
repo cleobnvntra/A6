@@ -16,6 +16,7 @@ var data_service = require("./data-service.js");
 var path = require("path");
 var multer = require("multer");
 var app = express();
+var exphbs = require("express-handlebars");
 var fs = require("fs");
 
 var HTTP_PORT = process.env.PORT || 8080;
@@ -38,27 +39,47 @@ const upload = multer({ storage: storage });
 
 app.use(express.static('public'));
 
+app.engine('.hbs', exphbs.engine({ extname: '.hbs'}));
+app.set('view engine', '.hbs');
+
+//CUSTOM HELPERS
+app.engine('.hbs', exphbs.engine({ 
+  extname: '.hbs',
+  helpers: { 
+    navLink: function(url, options) {
+      return '<li' +
+      ((url == app.locals.activeRoute) ? ' class="active" ' : '') +
+      '><a href=" ' + url + ' ">' + options.fn(this) + '</a></li>';
+    },
+    equal: function (lvalue, rvalue, options) {
+      if (arguments.length < 3)
+      throw new Error("Handlebars Helper equal needs 2 parameters");
+      if (lvalue != rvalue) {
+      return options.inverse(this);
+      } else {
+      return options.fn(this);
+      }
+     }      
+  }
+}));
+
+//SET THE CURRENT ROUTE TO ACTIVE WHEN ROUTE CHANGES
+app.use(function(req,res,next){
+  let route = req.baseUrl + req.path;
+  app.locals.activeRoute = (route == "/") ? "/" : route.replace(/\/$/, "");
+  next();
+ });
+
 //HOME ROUTE
 //HOME PAGE
 app.get("/", function(req,res) {
-  res.sendFile(path.join(__dirname,"/views/home.html"));
+  res.render('home');
 });
 
 //ABOUT ROUTE
 //ABOUT PAGE
 app.get("/about", function(req,res) {
-  res.sendFile(path.join(__dirname,"/views/about.html"));
-});
-
-//MANAGERS ROUTE
-//LIST OF MANAGERS
-app.get("/managers", function(req,res) {
-  data_service.getManagers().then(function(data) {
-    res.json(data);
-  })
-  .catch(function(err) {
-    res.send(err);
-  });
+  res.render('about');
 });
 
 //EMPLOYEE ROUTE
@@ -66,31 +87,30 @@ app.get("/managers", function(req,res) {
 app.get("/employees", function(req,res) {
   if(req.query.status) {
     data_service.getEmployeesByStatus(req.query.status).then(function(data) {
-      res.json(data);
+      res.render("employees", {employees: data});
     }).catch(function(err) {
-      res.send(err);
+      res.render({message: err});
     });
   }
   else if(req.query.department) {
     data_service.getEmployeesByDepartment(req.query.department).then(function(data) {
-      res.json(data);
+      res.render("employees", {employees: data});
     }).catch(function(err) {
-      res.send(err);
+      res.render({message: err});
     });
   }
   else if(req.query.manager) {
     data_service.getEmployeesByManager(req.query.manager).then(function(data) {
-      res.json(data);
+      res.render("employees", {employees: data});
     }).catch(function(err) {
-      res.send(err);
+      res.render({message: err});
     });
   }
   else {
     data_service.getAllEmployees().then(function(data) {
-        res.json(data);
-      }
-    ).catch(function(err) {
-      res.send(err);
+      res.render("employees", {employees: data});
+    }).catch(function(err) {
+      res.render({message: err});
     });
   }
 });
@@ -99,9 +119,9 @@ app.get("/employees", function(req,res) {
 //DISPLAY EMPLOYEE BY EMPLOYEENUM
 app.get("/employee/:employeeNum", function(req,res) {
   data_service.getEmployeesByNum(req.params.employeeNum).then(function(data) {
-    res.json(data);
+    res.render("employee", {employee: data});
   }).catch(function(err){
-    res.send(err);
+    res.render("employee", {message: err});
   });
 });
 
@@ -109,17 +129,17 @@ app.get("/employee/:employeeNum", function(req,res) {
 //LIST OF DEPARTMENTS
 app.get("/departments", function(req,res) {
     data_service.getDepartments().then(function(data) {
-      res.json(data);
+      res.render("departments", {departments: data});
     })
     .catch(function(err) {
-      res.send(err);
+      res.render({message: err});
     });
 });
 
 //ADD EMPLOYEE ROUTE
 //ADD EMPLOYEE FORM
 app.get("/employees/add", function(req,res) {
-  res.sendFile(path.join(__dirname,"/views/addEmployee.html"));
+  res.render('addEmployee');
 });
 
 //ADD EMPLOYEE POST
@@ -132,18 +152,34 @@ app.post("/employees/add", function(req,res) {
   });
 });
 
+//UPDATE EMPLOYEE POST
+//UPDATE SINGLE EMPLOYEE DATA
+app.post("/employee/update", function(req,res) {
+  data_service.updateEmployee(req.body).then(function() {
+    res.redirect("/employees");
+  }).catch(function(err) {
+    res.send(err);
+  });
+});
+
 //ADD IMAGE ROUTE
 //ADD IMAGE FORM
 app.get("/images/add", function(req,res) {
-  res.sendFile(path.join(__dirname,"/views/addImage.html"));
+  res.render('addImage');
 });
 
 //IMAGE ROUTE
 //LIST OF IMAGES
+
+
 app.get("/images", function(req,res) {
-  fs.readdir("./public/images/uploaded", function(err, images){
+  fs.readdir("./public/images/uploaded", function(err, images) {
+
     if(!err) {
-      res.json({images});
+      res.render('images', {
+        data: images,
+        layout: "main.hbs"
+      });
     }
   });
 });

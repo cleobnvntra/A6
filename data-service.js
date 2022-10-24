@@ -117,7 +117,7 @@ module.exports.getEmployeesByManager = function(manager) {
         }
         if(empByManager.length == 0) reject("No employees were found.");
         resolve(empByManager);
-    })
+    });
 }
 
 /**function call for one parameter route*/
@@ -129,7 +129,21 @@ module.exports.getEmployeesByNum = function(empNum) {
             }
         }
         reject("No employee found.");
-    })
+    });
+}
+
+/**function call to update employee data*/
+module.exports.updateEmployee = function(emp) {
+    return new Promise(function(resolve, reject) {
+        console.log(emp);
+        for(var i = 0; i < employees.length; ++i) {
+            if(employees[i].employeeNum == emp.employeeNum) {
+                employees[i] = emp;
+                resolve();
+            }
+        }
+        reject("No employee found.");
+    });
 }
 
 /**pushes employee data if employee is a manager */
