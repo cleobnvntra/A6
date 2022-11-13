@@ -14,10 +14,10 @@ other source
 var express = require("express");
 var data_service = require("./data-service.js");
 var path = require("path");
-//var multer = require("multer");
+var multer = require("multer");
 var app = express();
 var exphbs = require("express-handlebars");
-//var fs = require("fs");
+var fs = require("fs");
 
 var HTTP_PORT = process.env.PORT || 8080;
 
