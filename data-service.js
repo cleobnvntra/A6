@@ -164,7 +164,7 @@ module.exports.getEmployeesByManager = function(managerNum) {
 module.exports.getEmployeeByNum = function(empNum) {
     return new Promise(function (resolve, reject) {
         Employee.findAll({where: {employeeNum:empNum}}).then(function(emp) {
-            resolve(emp);
+            resolve(emp[0]);
         }).catch(function() {
             reject("No results found.");
         });
@@ -192,7 +192,7 @@ module.exports.updateEmployee = function(employeeData) {
             }
         }
 
-        Employee.update({employeeData, where: {employeeNum: employeeData.employeeNum}}).then(function(emp) {
+        Employee.update(employeeData, {where: {employeeNum: employeeData.employeeNum}}).then(function(emp) {
             resolve(emp);
         }).catch(function() {
             reject("Unable to update employee.");
@@ -209,10 +209,10 @@ module.exports.updateDepartment = function(departmentData) {
             }
         }
 
-        Department.update({departmentData, where: {departmentId: departmentData.departmentId}}).then(function(dep) {
+        Department.update(departmentData, {where: {departmentId: departmentData.departmentId}}).then(function(dep) {
             resolve(dep);
         }).catch(function() {
-            reject("Unable to update employee.");
+            reject("Unable to update department.");
         });
     });   
 }
