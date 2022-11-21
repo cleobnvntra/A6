@@ -239,7 +239,7 @@ app.get("/department/:departmentId", function(req,res) {
 app.get("/images", function(req,res) {
   fs.readdir("./public/images/uploaded", function(err, images) {
 
-    if(!err && !images) {
+    if(!err) {
       res.render('images', {
         data: images,
         layout: "main.hbs"
