@@ -13,7 +13,7 @@ var sequelize = new Sequelize('ztkoujvt', 'ztkoujvt', '9Ojed0fZi_T_-u_-lVV4AuPle
 sequelize.authenticate().then(()=> console.log('Connection success.'))
 .catch((err)=>console.log("Unable to connect to DB.", err));
 
-var Employee = sequelize.define('employee', {
+var Employee = sequelize.define('Employee', {
     employeeNum:  {
         type: Sequelize.INTEGER,
         primaryKey: true,
