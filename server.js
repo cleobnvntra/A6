@@ -31,13 +31,13 @@ function onHttpStart() {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const storage = multer.diskStorage({
+var storage = multer.diskStorage({
   destination: "./public/images/uploaded",
   filename: function(req, file, cb) {
     cb(null, Date.now() + path.extname(file.originalname));
   }
 });
-const upload = multer({ storage: storage });
+var upload = multer({ storage: storage });
 
 app.use(express.static('public'));
 
