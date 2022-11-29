@@ -69,7 +69,6 @@ module.exports.addEmployee = function(employeeData) {
         }
 
         Employee.create(employeeData).then(function() {
-            console.log(employeeData);
             resolve();
         }).catch(function() {
             reject("Unable to create employee.");
