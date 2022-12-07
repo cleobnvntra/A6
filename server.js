@@ -1,11 +1,11 @@
 /*************************************************************************
-* BTI325– Assignment 5
+* BTI325– Assignment 6
 * I declare that this assignment is my own work in accordance with Seneca Academic
 Policy. No part * of this assignment has been copied manually or electronically from any
 other source
 * (including 3rd party web sites) or distributed to other students.
 *
-* Name: Cleo Buenaventura Student ID: 030626139 Date: 11/21/2022
+* Name: Cleo Buenaventura Student ID: 030626139 Date: 12/07/2022
 *
 * Your app’s URL (from Heroku) : https://bti-a5.herokuapp.com/
 *
@@ -15,7 +15,7 @@ var express = require("express");
 var dataServiceAuth = require("./data-service-auth.js");
 var data_service = require("./data-service.js");
 var path = require("path");
-var multer = require("multer");
+//var multer = require("multer");
 var app = express();
 var exphbs = require("express-handlebars");
 var clientSessions = require("client-sessions");
