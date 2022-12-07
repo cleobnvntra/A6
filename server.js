@@ -7,7 +7,7 @@ other source
 *
 * Name: Cleo Buenaventura Student ID: 030626139 Date: 12/07/2022
 *
-* Your app’s URL (from Heroku) : https://bti-a5.herokuapp.com/
+* Your app’s URL (from Heroku) : https://lazy-teal-mussel-tux.cyclic.app/
 *
 *************************************************************************/ 
 
