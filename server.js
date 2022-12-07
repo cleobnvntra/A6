@@ -31,13 +31,13 @@ function onHttpStart() {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-var storage = multer.diskStorage({
-  destination: "./public/images/uploaded",
-  filename: function(req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
-});
-var upload = multer({ storage: storage });
+//var storage = multer.diskStorage({
+//  destination: "./public/images/uploaded",
+//  filename: function(req, file, cb) {
+//    cb(null, Date.now() + path.extname(file.originalname));
+//  }
+//});
+//var upload = multer({ storage: storage });
 
 app.use(express.static('public'));
 
@@ -284,20 +284,20 @@ app.get("/department/:departmentId", function(req,res) {
 
 //IMAGE ROUTE
 //LIST OF IMAGES
-app.get("/images", ensureLogin, function(req,res) {
-  fs.readdir("./public/images/uploaded", function(err, images) {
+// app.get("/images", ensureLogin, function(req,res) {
+//   fs.readdir("./public/images/uploaded", function(err, images) {
 
-    if(!err && images.length > 0) {
-      res.render('images', {
-        data: images,
-        layout: "main.hbs"
-      });
-    }
-    else {
-      res.render("images", {message: "No images available."});
-    }
-  });
-});
+//     if(!err && images.length > 0) {
+//       res.render('images', {
+//         data: images,
+//         layout: "main.hbs"
+//       });
+//     }
+//     else {
+//       res.render("images", {message: "No images available."});
+//     }
+//   });
+// });
 
 //LOGIN ROUTE
 //LOGIN PAGE
