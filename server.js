@@ -148,9 +148,9 @@ app.get("/images/add", ensureLogin, function(req,res) {
 
 //ADD IMAGE POST
 //UPLOAD IMAGE
-app.post("/images/add", ensureLogin, upload.single("imageFile"), function(req,res) {
-  res.redirect("/images");
-});
+// app.post("/images/add", ensureLogin, upload.single("imageFile"), function(req,res) {
+//   res.redirect("/images");
+// });
 
 //REGISTER POST
 //REGISTER FORM
@@ -284,20 +284,20 @@ app.get("/department/:departmentId", function(req,res) {
 
 //IMAGE ROUTE
 //LIST OF IMAGES
-// app.get("/images", ensureLogin, function(req,res) {
-//   fs.readdir("./public/images/uploaded", function(err, images) {
+app.get("/images", ensureLogin, function(req,res) {
+  fs.readdir("./public/images/uploaded", function(err, images) {
 
-//     if(!err && images.length > 0) {
-//       res.render('images', {
-//         data: images,
-//         layout: "main.hbs"
-//       });
-//     }
-//     else {
-//       res.render("images", {message: "No images available."});
-//     }
-//   });
-// });
+    if(!err && images.length > 0) {
+      res.render('images', {
+        data: images,
+        layout: "main.hbs"
+      });
+    }
+    else {
+      res.render("images", {message: "No images available."});
+    }
+  });
+});
 
 //LOGIN ROUTE
 //LOGIN PAGE
